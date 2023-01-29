@@ -9,6 +9,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>customer</module>
+        <module>fraud</module>
     </modules>
     <name>microservice</name>
     <description>Demo project for Spring Boot with Microservice</description>
