@@ -11,6 +11,8 @@
         <module>customer</module>
         <module>fraud</module>
         <module>eureka-server</module>
+        <module>notification</module>
+        <module>amqp</module>
     </modules>
     <name>microservice</name>
     <description>Demo project for Spring Boot with Microservice</description>
