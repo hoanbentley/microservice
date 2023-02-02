@@ -1,5 +1,6 @@
 package com.tonycode.customer;
 
+import com.tonycode.amqp.RabbitMQMessageProducer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,6 +11,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final RestTemplate restTemplate;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
@@ -28,5 +30,9 @@ public class CustomerService {
         if (fraudCheckHistoryResponse.isFraudulentCustomer()) {
             throw new IllegalStateException("fraud");
         }
+
+        rabbitMQMessageProducer.publish(
+                null, "internal.exchange", "internal.notification.routing-key"
+        );
     }
 }
