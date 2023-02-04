@@ -31,8 +31,21 @@ public class CustomerService {
             throw new IllegalStateException("fraud");
         }
 
+        NewCustomerRequest newCustomerRequest = new NewCustomerRequest(
+                "hoantk",
+                "hoanbentley@gmail.com",
+                37
+        );
         rabbitMQMessageProducer.publish(
-                null, "internal.exchange", "internal.notification.routing-key"
+                newCustomerRequest, "internal.exchange", "internal.notification.routing-key"
         );
     }
+
+    record NewCustomerRequest(
+            String name,
+            String email,
+            Integer age
+    ) {
+    }
+
 }
